@@ -75,14 +75,22 @@ final class PantherTerminService implements TerminServiceInterface
 
             if ($text !== self::NO_SLOTS_TITLE) {
                 $this->client->takeScreenshot($picturePath);
+                $this->quitClient();
                 return true;
             }
 
+            $this->quitClient();
             return false;
         } catch (WebDriverException) {
             $this->client->takeScreenshot($picturePath);
+            $this->quitClient();
             return true;
         }
+    }
+
+    private function quitClient(): void {
+        $this->client->quit();
+        $this->client->getBrowserManager()->quit();
     }
 
     private function extractBase64FromStyleAttribute(string $imageBase64): string {

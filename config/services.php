@@ -47,8 +47,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services
         ->set('panther.client')
         ->class(\Symfony\Component\Panther\Client::class)
-        ->factory([\Symfony\Component\Panther\Client::class, 'createChromeClient'])
-        ->args(['%env(CHROME_DRIVER_BINARY_PATH)%'])
+        ->factory([\Symfony\Component\Panther\Client::class, 'createFirefoxClient'])
     ;
 
     $services
